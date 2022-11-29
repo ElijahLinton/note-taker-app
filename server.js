@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const noteapi =  require('./routes/api')
-const noteHyper = require('.routes/hypertext.js');
+const noteHyper = require('./routes/hypertext.js');
 const { appendFile } = require('fs');
 const { use } = require('./routes/api');
 
