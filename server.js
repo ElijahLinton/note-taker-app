@@ -3,7 +3,7 @@ const app = express()
 const noteapi =  require('./routes/api')
 const noteHyper = require('.routes/hypertext.js');
 const { appendFile } = require('fs');
-const { use } = require('./api');
+const { use } = require('./routes/api');
 
 const PORT = process.env.PORT || 3001;
 
