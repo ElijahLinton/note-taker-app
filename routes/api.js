@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express()
-const titleAndData = require('express').Router();
-const {readAndAppend, readFromFile} = require('../helpers/fsUtils');
+const router = require('express').Router();
+const { readFromFile, readAndAppend } = require('../db/fsUtils');
 
-titleAndData.get('/api/notes',(req,res) =>{
+router.get('/notes',(req,res) =>{
   readFromFile('.db/noteData.json').then((data) => res.json(JSON.parse(data)))
   });
   
-  titleAndData.post('/api/noteData', (req , res) => {
+  router.post('/', (req , res) => {
     const { title, text } = req.body;
     switch (title, text) {
         case newData:
@@ -28,4 +28,4 @@ titleAndData.get('/api/notes',(req,res) =>{
 
   })
 
-  module.exports = titleAndData
+  module.exports = router
