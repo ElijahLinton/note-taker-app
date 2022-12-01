@@ -22,6 +22,7 @@ app.use(express.static('public'));
 app.use('/api', noteapi);
 app.use('/', hyperText);
 
-app.listen(PORT, () =>{
-    console.log(`App listening at ${PORT} 🚀`)
-})
+
+app.listen(PORT, () => {
+    console.log(`API server is ready on port http://localhost:${PORT} !`);
+});
