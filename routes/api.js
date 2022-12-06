@@ -1,31 +1,20 @@
-const { v4: uuidv4 } = require('uuid');
-const router = require('express').Router();
+const fs = require("fs");
+const uuid = require("uuid");
+const router = require("express").Router();
+("")
+router.get("/notes", (req, res) => {
+    const data = fs.readFileSync("../");
+    res.json(JSON.parse(data));
+})
 
-const { readFromFile, readAndAppend } = require('../db/fsUtils');
+router.post("/notes", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync(""));
+    const addNote = req.body;
+    addNote.id = uuid.v4();
+    notes.push(addNote);
+    fs.writeFileSync("../db/noteData.json", JSON.stringify(notes));
+    res.json(notes);
+})
 
-router.get('/notes',(req,res) =>{
-  readFromFile('./db/noteData.json')
-  .then((data) => res.json(JSON.parse(data)))
-  });
-  
-  router.post('/', (req , res) => {
-     console.log(req.body)
-    
-        const { title, text} = req.body;
-    
-    if(req.body) {
-        const newNote ={
-            title,
-            text,
-            id: uuidv4()
-        };
-        readAndAppend(newNote, './db/noteData.json')
-        res.json('new note received')
-    }else {
-        res.errored('error somethings wrong!')
-    }
- 
 
-  })
-
-  module.exports = router
+module.exports = router;

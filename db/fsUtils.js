@@ -1,34 +1,48 @@
-const fs = require('fs');
+// Dependecncies
 const util = require('util');
+const fs = require('fs');
+const { v4: uuidv4 } = require('uuid'); // Newest update
 
-// Promise version of fs.readFile
-const readFromFile = util.promisify(fs.readFile);
-/**
- *  Function to write data to the JSON file given a destination and some content
- *  @param {string} destination The file you want to write to.
- *  @param {object} content The content you want to write to the file.
- *  @returns {void} Nothing
- */
-const writeToFile = (destination, content) =>
-  fs.writeFile(destination, JSON.stringify(content, null, 4), (err) =>
-    err ? console.error(err) : console.info(`\nData written to ${destination}`)
-  );
-/**
- *  Function to read data from a given a file and append some content
- *  @param {object} content The content you want to append to the file.
- *  @param {string} file The path to the file you want to save to.
- *  @returns {void} Nothing
- */
-const readAndAppend = (content, file) => {
-  fs.readFile(file, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-    } else {
-      const parsedData = JSON.parse(data);
-      parsedData.push(content);
-      writeToFile(file, parsedData);
+
+const readNote = util.promisify(fs.readFile);
+const writeNote = util.promisify(fs.writeFile);
+
+class Save {
+    write(note) {
+        return writeNote('db/db.json', JSON.stringify(note));
     }
-  });
-};
 
-module.exports = { readFromFile, writeToFile, readAndAppend };
+    read() {
+        return readNote('db/db.json', 'utf8');
+    }
+
+    retrieveNotes() {
+        return this.read().then(notes => {
+            let parsedNotes;
+            try {
+                parsedNotes = [].concat(JSON.parse(notes));
+            } catch (err) {
+                parsedNotes = [];
+            }
+            return parsedNotes;
+        });
+    }
+
+    addNote(note) {
+        const { title, text } = note;
+        if (!title || !text) {
+            throw new Error('Both title and text can not be blank');
+        }
+     
+        const newNote = { title, text, id: uuidv4() };
+
+
+        return this.retrieveNotes()
+            .then(notes => [...notes, newNote])
+            .then(updatedNotes => this.write(updatedNotes))
+            .then(() => newNote);
+    }
+  }
+
+
+module.exports = new Save();
