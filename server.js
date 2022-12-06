@@ -2,11 +2,9 @@ const express = require('express')
 
 
 const noteapi =  require('./routes/api')
-const hyperText = require('./routes/hypertext.js');
-
-
-
-const app = express()
+const noteHyper = require('.routes/hypertext.js');
+const { appendFile } = require('fs');
+const { use } = require('./routes/api');
 
 const PORT = process.env.PORT || 3001;
 
