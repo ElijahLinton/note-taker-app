@@ -1,31 +1,20 @@
-const express = require('express')
-const app = express()
+const fs = require("fs")
+const uuid = require('uuid')
 const router = require('express').Router();
-const { readFromFile, readAndAppend } = require('../tools/fsUtils');
+const db = require('../db/db.json')
 
 router.get('/notes',(req,res) =>{
-  readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)))
-  });
-  
-  router.post('/', (req , res) => {
-    const { title, text } = req.body;
-    switch (title, text) {
-        case newData:
-            const newNote = {
-                title,
-                text
-            };
-            readAndAppend(newNote, '' );
-            const response = {
-                status: 'added fine hip hip HORAYYY!!',
-                body: newNote
-            }
-            res.json(response)
-            break;
-            default:
-                res.json('UH OH!: cant add new note :(')
-    }
+ const dataBase = fs.readFileSync(db)
+ res.json(JSON.parse(dataBase))
+})
 
-  })
+router.post("/notes", (req, res) => {
+    const notes = JSON.parse(fs.readFileSync(db));
+    const dataBody = req.body
+    dataBody.id = uuid.v4();
+    notes.push(dataBody)
+    fs.writeFileSync(db, JSON.stringify(note));
+    res.json(notes)
+});
 
-  module.exports = router
+module.exports = router;
