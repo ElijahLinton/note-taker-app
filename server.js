@@ -24,5 +24,5 @@ app.use('/', hyperText);
 
 
 app.listen(PORT, () => {
-    console.log(`API server is ready on port https://localhost:${PORT}`);
+    console.log(`API server is ready on port http://localhost:${PORT}`);
 });
