@@ -13,7 +13,7 @@ router.get('/notes', (req,res) => {
 
 router.get('*', (req, res) =>{
     res.sendFile(path.join(__dirname, '../public/index.html'))
-    readfromFile('./db/noteData.json').then((data) =>
+    readfromFile('./db/db.json').then((data) =>
     res.json(JSON.parse(data))
     );
 })

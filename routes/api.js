@@ -4,7 +4,7 @@ const router = require('express').Router();
 const { readFromFile, readAndAppend } = require('../tools/fsUtils');
 
 router.get('/notes',(req,res) =>{
-  readFromFile('.db/noteData.json').then((data) => res.json(JSON.parse(data)))
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)))
   });
   
   router.post('/', (req , res) => {
@@ -15,7 +15,7 @@ router.get('/notes',(req,res) =>{
                 title,
                 text
             };
-            readAndAppend(newNote, '.db/noteData.json' );
+            readAndAppend(newNote, './db/db.json' );
             const response = {
                 status: 'added fine hip hip HORAYYY!!',
                 body: newNote

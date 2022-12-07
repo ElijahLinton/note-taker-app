@@ -23,5 +23,5 @@ app.use('/api', noteapi);
 app.use('/', hyperText);
 
 app.listen(PORT, () =>{
-    console.log(`App listening at ${PORT} 🚀`)
+    console.log(`App listening at http://localhost:${PORT} 🚀`)
 })
