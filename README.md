@@ -17,7 +17,7 @@ N/A
 ## Usage
 typpe in a note you want to keep and take and it will allow you to save it aswell as keeping it in a database. incase you dont want it you can also delete i aswell
 ## Screenshot
-[webpage screenshot](assets\workday.PNG)
+
 
 ## Link
 heroku app
