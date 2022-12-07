@@ -2,9 +2,11 @@ const express = require('express')
 
 
 const noteapi =  require('./routes/api')
-const noteHyper = require('.routes/hypertext.js');
-const { appendFile } = require('fs');
-const { use } = require('./routes/api');
+const hyperText = require('./routes/hypertext.js');
+
+
+
+const app = express()
 
 const PORT = process.env.PORT || 3001;
 
@@ -22,5 +24,5 @@ app.use('/', hyperText);
 
 
 app.listen(PORT, () => {
-    console.log(`API server is ready on port http://localhost:${PORT} !`);
+    console.log(`API server is ready on port http://localhost:${PORT}`);
 });
